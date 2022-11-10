@@ -13,15 +13,25 @@ phases:
     commands:
       - docker login -u $username -p $password
       - echo logging in to ecr...
-      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767466983442.dkr.ecr.us-east-1.amazonaws.com
       - echo logged in ...
   build:
     commands:
       - echo building dev images...
       - docker-compose up -d --build
       - echo building prod images...
-      - docker build -f be/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod ./be
-      - docker build -f fe/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod --build-arg NODE_ENV=production --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL ./fe
+      - >
+        docker build \
+          -f be/Dockerfile \
+          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod \
+          ./be
+      - >
+        docker build \
+          -f fe/Dockerfile \
+          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod \
+          --build-arg NODE_ENV=production \
+          --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL \
+          ./fe
   post_build:
     commands:
     - echo pushing prod images to ecr...
