@@ -31,8 +31,10 @@ import jwt
 g = dict()
 
 # mongo
-#mongo_client = MongoClient('mongodb://localhost:27017/')
-mongo_client = MongoClient("mongodb+srv://admin:admin@tweets.8ugzv.mongodb.net/tweets?retryWrites=true&w=majority")
+mongo_client = MongoClient('mongodb://localhost:27017/')
+# mongo_client = MongoClient("mongodb+srv://admin:admin@tweets.8ugzv.mongodb.net/tweets?retryWrites=true&w=majority")
+# mongo_client=MongoClient("mongodb+srv://aamrah:aamrah@cluster0.mnbhu.mongodb.net/?retryWrites=true&w=majority")
+# mongo_client=MongoClient("mongodb+srv://vasudhab:vasudha@cluster0.ieaeizf.mongodb.net/?retryWrites=true&w=majority")
 class MyMongo(object):
     def __init__(self, db_name):
         self.db_name = db_name
@@ -303,7 +305,8 @@ def atlas_connect():
     # });
 
     # Python
-    client = pymongo.MongoClient("mongodb+srv://admin:<password>@tweets.8ugzv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://aamrah:aamrah@cluster0.mnbhu.mongodb.net/?retryWrites=true&w=majority")
+    # client = pymongo.MongoClient("mongodb+srv://vasudhab:vasudha@cluster0.ieaeizf.mongodb.net/?retryWrites=true&w=majority")
     db = client.test
 
 
@@ -435,20 +438,21 @@ def add_tweet():
     description = request.json['description']
     private = request.json['private']
     pic = request.json['pic']
-
-    access_token = request.json['access-token']
-    print("access_token:", access_token)
-    permission = verify_token(access_token)
-    if not permission[0]: 
-        print("tweet submission denied due to invalid token!")
-        print(permission[1])
-        return permission[1]
-    else:
-        print('access token accepted!')
-
+    print('before tweet submission 9876543567890986545678909887654367890')
+    # access_token = request.json['access-token']
+    # print("access_token:", access_token)
+    # permission = verify_token(access_token)
+    # if not permission[0]: 
+    #     print("tweet submission denied due to invalid token!")
+    #     print(permission[1])
+    #     return permission[1]
+    # else:
+    #     print('access token accepted!')
+    
     tweet = dict(user=user, description=description, private=private,
                 upvote=0, date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 pic=pic, _id=str(ObjectId()))
+    print('after tweet submission 9876543567890986545678909887654367890')
     tweets[tweet['_id']] = tweet
 
     insert_one(tweet)

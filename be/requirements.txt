@@ -10,3 +10,4 @@ PyJWT
 python-dateutil
 pytz
 dnspython
+flask_bcrypt
