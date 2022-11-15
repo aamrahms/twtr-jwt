@@ -10,7 +10,7 @@ const styles = theme => ({
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
     marginTop: '100px',
-    color : red
+    color : "#00000"
   }
 });
 
