@@ -9,7 +9,8 @@ const styles = theme => ({
     justifyContent: "space-around",
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
-    marginTop: '100px'
+    marginTop: '100px',
+    color : red
   }
 });
 
